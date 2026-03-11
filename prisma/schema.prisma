@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Category {
+  id      Int      @id @default(autoincrement())
+  name    String   @unique
+  books   Book[]
+  layouts LibraryLayout[] @relation("LayoutCategories")
+}
+
+model Book {
+  id        Int      @id @default(autoincrement())
+  title     String
+  author    String
+  isHidden  Boolean  @default(false)
+  image     String?
+  
+  categoryId Int
+  category   Category @relation(fields: [categoryId], references: [id])
+  layouts    LibraryLayout[] @relation("FeaturedBooks")
+}
+
+model LibraryLayout {
+  id       Int     @id @default(autoincrement())
+  heroText String?
+  heroImg  String?
+  
+  featuredBooks Book[]     @relation("FeaturedBooks")
+  categories    Category[] @relation("LayoutCategories")
+}

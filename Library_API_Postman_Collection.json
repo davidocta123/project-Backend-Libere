@@ -1,0 +1,123 @@
+{
+  "info": {
+    "name": "Library Management API",
+    "description": "API collection for Librarian Dashboard. Includes layout customization and book management endpoints.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "F-01 Librarian Dashboard (Layout)",
+      "item": [
+        {
+          "name": "Update Library Layout (Hero, Featured, Categories)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"heroText\": \"Welcome to the Grand E-Library\",\n  \"heroImg\": \"https://images.unsplash.com/photo-1507842217343-583bb7270b66?q=80\",\n  \"featuredBookIds\": [1],\n  \"categoryIds\": [1, 2]\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/admin/layout",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "admin", "layout"]
+            },
+            "description": "Updates the Hero section, Featured Books, and Categories displayed on the library catalog."
+          }
+        },
+        {
+          "name": "Get Public Library Layout",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/api/public/layout",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "public", "layout"]
+            },
+            "description": "Fetches the current dynamic layout applied by the librarian."
+          }
+        }
+      ]
+    },
+    {
+      "name": "F-02 Librarian Dashboard (Books)",
+      "item": [
+        {
+          "name": "Add Book",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Atomic Habits\",\n  \"author\": \"James Clear\",\n  \"categoryId\": 1,\n  \"image\": \"https://m.media-amazon.com/images/I/81bGKUa1e0L._AC_UF1000,1000_QL80_.jpg\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/api/admin/books",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "admin", "books"]
+            },
+            "description": "Adds a new book to the library database."
+          }
+        },
+        {
+          "name": "Remove Book",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost:5000/api/admin/books/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "admin", "books", "1"]
+            },
+            "description": "Permanently deletes a book from the catalog by its ID."
+          }
+        },
+        {
+          "name": "Hide Book (Toggle Status)",
+          "request": {
+            "method": "PATCH",
+            "url": {
+              "raw": "http://localhost:5000/api/admin/books/1/status",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "admin", "books", "1", "status"]
+            },
+            "description": "Toggles the 'isHidden' status of a book to hide it from the public catalog."
+          }
+        },
+        {
+          "name": "Get All Visible Books",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/api/books",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["api", "books"]
+            },
+            "description": "Returns all non-hidden books for general viewing."
+          }
+        }
+      ]
+    }
+  ]
+}
