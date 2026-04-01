@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+// import uploadRoute from './routes/uploadRoute';
 import 'express-async-errors';
 
 dotenv.config();
@@ -12,6 +13,8 @@ app.use(express.json());
 
 import apiRoutes from './routes/api';
 app.use('/api', apiRoutes);
+
+// app.use("/api", uploadRoute);
 
 app.get('/api/health', (req: Request, res: Response) => {
   res.json({ status: 'ok', message: 'API is running' });
@@ -37,3 +40,30 @@ app.use((err: Error, req: Request, res: Response, next: express.NextFunction) =>
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
+
+
+// console.log(process.env.VITE_PRIVY_APP_ID);
+// console.log(process.env.VITE_PINATA_API_KEY);
+console.log(process.env.SUPABASE_URL);
+console.log(process.env.SUPABASE_SERVICE_ROLE_KEY);
+
+// import { createClient } from '@supabase/supabase-js';
+
+// const supabaseUrl = process.env.SUPABASE_URL;
+// const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+// const supabase = createClient(supabaseUrl!, supabaseKey!);
+
+// const testConnection = async () => {
+//   const { data, error } = await supabase
+//     .from('Book')
+//     .select('*');
+  
+//   if (error) {
+//     console.error('Error:', error.message);
+//   } else {
+//     console.log('Data from Supabase:', data);
+//   }
+// };
+
+// testConnection();
+
