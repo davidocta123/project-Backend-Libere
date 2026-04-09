@@ -29,6 +29,7 @@
               "port": "5000",
               "path": ["api", "admin", "layout"]
             },
+          
             "description": "Updates the Hero section, Featured Books, and Categories displayed on the library catalog."
           }
         },
