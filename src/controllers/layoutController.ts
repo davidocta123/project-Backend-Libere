@@ -22,7 +22,7 @@ export const updateLayout = async (req: Request, res: Response) => {
   const { heroText, heroImg, featuredBookIds, categoryIds } = req.body;
 
   try {
-    // 🔹 pastikan layout ada (kalau tidak → buat)
+    // pastikan layout ada (kalau tidak → buat)
     let layout = await prisma.libraryLayout.findFirst();
 
     if (!layout) {
@@ -34,7 +34,7 @@ export const updateLayout = async (req: Request, res: Response) => {
       });
     }
 
-    // 🔹 validasi categoryIds (optional tapi bagus)
+    // validasi categoryIds (optional tapi bagus)
     if (categoryIds) {
       const categories = await prisma.category.findMany({
         where: { id: { in: categoryIds } }
@@ -45,7 +45,7 @@ export const updateLayout = async (req: Request, res: Response) => {
       }
     }
 
-    // 🔹 validasi featuredBookIds
+    // validasi featuredBookIds
     if (featuredBookIds) {
       const books = await prisma.book.findMany({
         where: { id: { in: featuredBookIds } }
@@ -56,7 +56,7 @@ export const updateLayout = async (req: Request, res: Response) => {
       }
     }
 
-    // 🔥 update
+    // update
     const updatedLayout = await prisma.libraryLayout.update({
       where: { id: layout.id },
       data: {

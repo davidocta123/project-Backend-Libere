@@ -13,22 +13,18 @@ import { getLayout, updateLayout } from '../controllers/layoutController';
 
 const router = Router();
 
-// 🔥 multer config
+// multer config
 const upload = multer({
   storage: multer.memoryStorage(),
 //   limits: { fileSize: 50 * 1024 * 1024 }, // optional (50MB)
 });
 
-// =======================
 // PUBLIC ROUTES
-// =======================
 router.get('/public/layout', getLayout);
 router.get('/books', getBooks);
 router.get('/books/:id/file', getBookFile);
 
-// =======================
 // ADMIN BOOKS
-// =======================
 router.post(
   '/admin/books',
   upload.fields([
@@ -41,9 +37,7 @@ router.post(
 router.delete('/admin/books/:id', removeBook);
 router.patch('/admin/books/:id/status', toggleHideBook);
 
-// =======================
 // ADMIN LAYOUT
-// =======================
 router.put('/admin/layout', updateLayout);
 
 export default router;

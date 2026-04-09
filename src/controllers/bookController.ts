@@ -29,7 +29,7 @@ export const addBook = async (req: Request, res: Response) => {
 
     
 
-    // 🔥 ambil file
+    // ambil file
     const files = req.files as {
       file?: Express.Multer.File[];
       thumbnail?: Express.Multer.File[];
@@ -38,21 +38,19 @@ export const addBook = async (req: Request, res: Response) => {
     const file = files?.file?.[0];
     const thumbnailFile = files?.thumbnail?.[0];
 
-    // 🔒 validasi wajib
+    // validasi wajib
     if (!title || !author ||  !isbn || !file) {
       return res.status(400).json({
-        error: "Title, author, categoryId, isbn, dan file PDF wajib"
+        error: "Title, author, isbn, dan file PDF wajib"
       });
     }
 
-    // 🔒 validasi PDF
+    // validasi PDF
     if (file.mimetype !== "application/pdf") {
       return res.status(400).json({ error: "File buku harus PDF" });
     }
 
-    // =======================
-    // 🔥 UPLOAD PDF
-    // =======================
+    // UPLOAD PDF
     const pdfExt = file.originalname.split(".").pop();
     const fileKey = `books/${Date.now()}.${pdfExt}`;
 
@@ -65,9 +63,7 @@ export const addBook = async (req: Request, res: Response) => {
       })
     );
 
-    // =======================
-    // 🔥 UPLOAD THUMBNAIL (optional)
-    // =======================
+    // UPLOAD THUMBNAIL (optional)
     let thumbnailKey: string | null = null;
 
     if (thumbnailFile) {
@@ -90,9 +86,7 @@ export const addBook = async (req: Request, res: Response) => {
       );
     }
 
-    // =======================
-    // 🔥 SIMPAN KE DATABASE
-    // =======================
+    // SIMPAN KE DATABASE
     const newBook = await prisma.book.create({
       data: {
         title,
@@ -121,9 +115,7 @@ export const addBook = async (req: Request, res: Response) => {
 };
 
 
-// =======================
 // GET FILE (SIGNED URL)
-// =======================
 export const getBookFile = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
